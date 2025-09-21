@@ -2,7 +2,7 @@
 Modules
 `````````````````````````
 CommonJs modules-old ways to import and export moduls
-`````````````````````````
+
 Moduls-collection of code. it private itself.
 commonJs execute synchronous and non strict mood.
 
@@ -45,5 +45,3 @@ import {fnName} from "./path.js"- always use extention strictly
 `````````````````````````````````````````````````````
 import all file in a single file and export it. 
 `````````````````````````````````````````````
-
-`````````````````````````
