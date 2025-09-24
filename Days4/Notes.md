@@ -5,7 +5,7 @@ DAYS 4  --Libuv--
 2. It give Nodejs the ability to handle the asynchronous task(non-blocking operation).
 
 -------------------------------------------------------
-1. You run some async code like apicall, fs.readfile(). Nodejs send the request to our Hero Libuv.
+1. You run some async code like apicall, fs.readfile(),setTimeout. v8 engine send the request to our Hero Libuv.
 2.Libuv put in a thread pool(background)
 3.Once the task finishes, Libuv sends back the result in callstack and js execute immediatly.
 
