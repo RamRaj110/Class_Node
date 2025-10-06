@@ -4,36 +4,36 @@ const fs = require("fs");
 
 
 setImmediate(() => {
-    console.log("I am Immediat callback");
+    console.log("I am Immediat callback 1");
 });
 
 fs.readFile("./Notes.md","utf-8",()=>{
     setImmediate(() => {
-    console.log("I am 2nd Immediat callback");
+    console.log("I am 2nd Immediat callback 2");
 });
 setTimeout(()=>{
-    console.log("I am 2nd timeout callback");
+    console.log("I am 2nd timeout callback 3");
 },0)
 
-Promise.resolve(("I am 2nd promise callback")).then((res)=>{
+Promise.resolve(("I am 2nd promise callback 4")).then((res)=>{
     console.log(res);
 })
-    console.log("I am file callback");
+    console.log("I am file callback 5");
 })
 
 setTimeout(()=>{
-    console.log("I am timeout callback");
+    console.log("I am timeout callback 6");
 },0)
 
-Promise.resolve(("I am promise callback")).then((res)=>{
+Promise.resolve(("I am promise callback 7")).then((res)=>{
     console.log(res);
 })
 
 process.nextTick(()=>{
     process.nextTick(()=>{
-        console.log("I am inside next tick callback");
+        console.log("I am inside next tick callback 8");
     })
-    console.log("I am next tick callback");
+    console.log("I am next tick callback 9");
 })
 
-console.log("I am  the last line.")
+console.log("I am  the last line. 10")

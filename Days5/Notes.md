@@ -1,7 +1,7 @@
 ```````````````````````````````````````
 Days 4 (Event Loop)
 ```````````````````````````````````````
-Event Loop keep checking Callstack is Empty or not. if empty then push the async task in callstack.
+Event Loop keep checking Callstack is Empty or not. if empty then push the async task in callstack.async task perform using libuv.
 
 Start->[Process Next Tick]->[Promis callback]->[Timer]->[Process Next Tick]->[Promis callback]->[Poll]->[Process Next Tick]->[Promis callback]->[Check]->[Process Next Tick]->[Promis callback]->[Close]->[Process Next Tick]->[Promis callback]->[Timer]
 
@@ -20,7 +20,6 @@ First of all synchronous code is execute when call stack is empty. Then async co
 //code1.js
 
 const fs = require("fs");
-
 const a = 123;
 
 setImmediate(() => {
