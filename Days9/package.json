@@ -1,0 +1,18 @@
+{
+  "name": "dev_tinder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node code.js",
+    "dev": "nodemon code.js"
+  },
+  "keywords": [],
+  "author": "pawan",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongodb": "^6.20.0"
+  }
+}
