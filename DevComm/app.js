@@ -1,6 +1,6 @@
 const express = require('express');
 const connectDb = require('./src/config/database');
-const User = require('./src/modules/User');
+const User = require('./src/modules/user');
 
 const app = express();
 app.use(express.json())
@@ -38,11 +38,21 @@ res.send('user delete succefully...')
   }
 })
 
-app.patch("/user",async(req,res)=>{
-  const userId = req.body.userId;
+app.patch("/user/:userId",async(req,res)=>{
+  const userId = req.params?.userId;
   const data = req.body
   try {
-    const update = await User.findByIdAndUpdate(userId , data)
+    const allow_update = [ 'firstName','lastName','email','password','age','gender','skills','about','profileImg'];
+   const isUpdate = Object.keys(data).every((keys)=>{
+    return  allow_update.includes(keys)
+   })
+   if(!isUpdate){
+    throw new Error('invalid update')
+   }
+   if(data.skills && data.skills.length > 5){
+    throw new Error('you can add max 5 skills')
+   }
+    const update = await User.findByIdAndUpdate(userId , data,{runValidators:true})
     // console.log(update)
     res.send('user update successfully...')
   } catch (error) {

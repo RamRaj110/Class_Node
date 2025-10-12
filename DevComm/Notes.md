@@ -41,12 +41,12 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model("User", userSchema);
-
-
-
+--------------------------------------------------------------------------------------
 3.Define api and sava data in database.(get,post,patch,delete)
 
-app.use(express.json()) //when we are pass the data in json format. its conver into object and pass the data. this middleware call every api hit.
+app.use(express.json())
+ //when we are pass the data in json format. its conver into object and pass the data.
+ // this middleware call every api hit.
 
 app.post('/signup',async(req ,res)=>{
   const user = new User(req.body);
@@ -91,3 +91,26 @@ app.patch("/user",async(req,res)=>{
   }
 })
 ```````````````````````````````````````````````````````````````````````````````````````
+4.api level validation
+
+app.patch("/user/:userId",async(req,res)=>{
+  const userId = req.params?.userId;
+  const data = req.body
+  try {
+    const allow_update = [ 'firstName','lastName','email','password','age','gender','skills','about','profileImg'];
+   const isUpdate = Object.keys(data).every((keys)=>{
+    return  allow_update.includes(keys)
+   })
+   if(!isUpdate){
+    throw new Error('invalid update')
+   }
+   if(data.skills && data.skills.length > 5){
+    throw new Error('you can add max 5 skills')
+   }
+    const update = await User.findByIdAndUpdate(userId , data,{runValidators:true})
+    // console.log(update)
+    res.send('user update successfully...')
+  } catch (error) {
+    res.status(400).send('user is not update....something is wrong.')
+  }
+})
