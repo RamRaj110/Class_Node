@@ -16,6 +16,7 @@ app.listen(3000, () => {
 })
 
 ``````````````````````````````````````````````````````````````````````````````````````
+```````````````````````````````````````````````````````````````````````````````````````
 
 2.Define Schema (user.js)
 
@@ -42,6 +43,8 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 ``````````````````````````````````````````````````````````````````````````````````````
+```````````````````````````````````````````````````````````````````````````````````````
+
 3.Define api and sava data in database.(get,post,patch,delete)
 
 app.use(express.json()) //when we are pass the data in json format. its conver into object and pass the data. this middleware call every api hit.
