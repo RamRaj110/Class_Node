@@ -1,0 +1,22 @@
+{
+  "name": "devcomm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": " nodemon app.js",
+    "start": " node app.js"
+  },
+  "keywords": [],
+  "author": "pawantechdev",
+  "license": "ISC",
+  "packageManager": "pnpm@10.14.0",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.1",
+    "validator": "^13.15.15"
+  }
+}
