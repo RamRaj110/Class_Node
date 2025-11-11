@@ -114,3 +114,4 @@ app.patch("/user/:userId",async(req,res)=>{
     res.status(400).send('user is not update....something is wrong.')
   }
 })
+```````````````````````````````````````````````````````````````````````````````````````
