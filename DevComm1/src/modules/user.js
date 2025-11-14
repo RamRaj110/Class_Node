@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema({
   },
   profileImg:{
     type:String,
-    default:"https://www.pngall.com/wp-content/uploads/5/Profile-PNG-High-Quality-Image.png"
+    default:"https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
   }
 },
 { timestamps: true }

@@ -91,6 +91,7 @@ app.patch("/user",async(req,res)=>{
   }
 })
 ```````````````````````````````````````````````````````````````````````````````````````
+````````````````````````````````````````````````````````````````````````````````````
 4.api level validation
 
 app.patch("/user/:userId",async(req,res)=>{
@@ -114,6 +115,7 @@ app.patch("/user/:userId",async(req,res)=>{
     res.status(400).send('user is not update....something is wrong.')
   }
 })
+<<<<<<< HEAD
 
 ````````````````````````````````````````````````````````````````````````````````
 5.npm i validator - (see docs) 
@@ -241,3 +243,6 @@ const userAuth = async(req, res,next)=>{
 }
 
 module.exports = userAuth
+=======
+```````````````````````````````````````````````````````````````````````````````````````
+>>>>>>> 499e13fcd270fc282a57af6a3dd0a78e83cdb064
