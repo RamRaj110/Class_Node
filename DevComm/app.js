@@ -1,21 +1,70 @@
 const express = require('express');
 const connectDb = require('./src/config/database');
 const User = require('./src/modules/user');
+const userValidation = require('./src/utils/userValidation');
+const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken')
+const userAuth = require('./src/middlewares/userAuth')
 
 const app = express();
+
 app.use(express.json())
+app.use(cookieParser())
 
 app.post('/signup',async(req ,res)=>{
-
-  const user = new User(req.body);
-//handle error
-try{
+  try{
+  userValidation(req)
+  const {firstName,lastName,email,gender,password} = req.body
+  const hashPassword  = await bcrypt.hash(password,10);
+  // console.log(hashPassword)
+ 
+  // const user = new User(req.body);
+  const user = new User({
+   firstName,
+   lastName,
+   email,
+   gender,
+   password:hashPassword
+  })
    await user.save();
   res.send("User created successfully.")
 }catch(err){
-  res.status(400).send("Error creating user.")
+  res.status(400).send("Error:"+err.message)
 }
  
+})
+
+
+app.post('/login',async(req,res)=>{
+  try{
+    const {email,password}= req.body
+    const user = await User.findOne({email});
+    if(!user){
+      throw new Error('Invalid Credentials...')
+    }else{
+      const isMatch = await user.validatePasswrd(password)
+      if(!isMatch){
+        throw new Error('Invalid Credentials...')
+      }else{
+        const token = await user.getJWT()
+     
+        res.cookie('token',token,{expires: new Date(Date.now() + 8*3600000)})
+        res.send('user login successfully...')
+      }
+    }
+  }catch(err){
+    res.status(400).send("Error:"+err.message)
+  }
+})
+
+app.get("/profile",userAuth,async(req,res)=>{
+  try{
+    const user = req.user
+    res.send(user)
+  }catch(err){
+    res.status(400).send('Error'+err.message);
+  }
 })
 
 app.get('/feed',async(req,res)=>{
