@@ -32,10 +32,10 @@ const Body = () => {
   }, [])
 
   return (
-    <div>
+    <div >
       <NavBar />
       <Outlet />
-      <Footer />
+      <Footer  />
     </div>
   )
 }

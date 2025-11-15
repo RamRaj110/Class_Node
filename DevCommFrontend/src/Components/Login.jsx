@@ -14,10 +14,9 @@ export default function Example() {
 
   const dispatch = useDispatch()
   const handleSubmit =async (e) => {
-
     e.preventDefault();
    try {
-    const res = await axios.post(BASE_URL+'login',{
+    const res = await axios.post(BASE_URL+'/login',{
       email,
       password
     },{

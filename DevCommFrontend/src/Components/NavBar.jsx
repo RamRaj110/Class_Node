@@ -11,7 +11,7 @@ const NavBar = () => {
   const navigate = useNavigate()
   const handleLogout=async()=>{
     try {
-      await axios.post(BASE_URL+'logout',{},{
+      await axios.post(BASE_URL+'/logout',{},{
         withCredentials:true,
       })
       dispatch(removeUserInfo())
@@ -26,13 +26,16 @@ const NavBar = () => {
   <div className="flex-1">
     <Link to='/feed' className="btn btn-ghost text-xl">DevCommunity</Link>
   </div>
-  <div className="flex gap-2">  
+  <div className="flex gap-2">
+    {!user && <Link to='/login'>
+    <button className="btn btn-outline btn-success mr-2">Login</button>  
+    </Link>}
     {user && <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar mx-2">
         <div className="w-10 rounded-full">
           <img
             alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            src={user.profileImg}/>
         </div>
       </div>
       <ul
