@@ -1,42 +1,26 @@
 import { FaEnvelope, FaUser, FaCalendarAlt, FaVenusMars } from "react-icons/fa";
 
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
 
-const Profile = () => {
-  const user = useSelector((state)=> state.userInfo.userInfo)
-  const navigate = useNavigate();
-  
+
+const UserCard = ({user})=> {
 
   const {
     firstName,
     lastName,
-    email,
     gender,
     about,
     profileImg,
     skills = [],
-    createdAt,
-    updatedAt,
+
   } = user;
+  console.log(user)
 
-  const formatDate = (date) =>
-    new Date(date).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-
-  const handleEditClick = () => {
-    navigate('/edit');
-  }
 
   return (
+    user &&
     <div className="max-w-lg mx-auto bg-base-300 rounded-2xl shadow-xl overflow-hidden mt-3 border border-base-200">
 
-      {/* Header gradient */}
       <div className="bg-gradient-to-r from-primary to-secondary h-32 w-full"></div>
-
       {/* Avatar */}
       <div className="avatar -mt-16 flex justify-center">
         <div className="w-32 rounded-full ring ring-base-100 ring-offset-2 shadow-md">
@@ -46,6 +30,7 @@ const Profile = () => {
 
       {/* Body */}
       <div className="p-6 text-center">
+
         {/* Name */}
         <h2 className="text-2xl font-bold">
           {firstName} {lastName}
@@ -56,10 +41,6 @@ const Profile = () => {
           <FaVenusMars /> {gender}
         </p>
 
-        {/* Email */}
-        <p className="mt-1 text-base-content/70 flex justify-center items-center gap-2">
-          <FaEnvelope className="text-primary" /> {email}
-        </p>
 
         {/* About Section */}
         <div className="mt-4 bg-base-200 p-3 rounded-lg shadow-inner">
@@ -85,21 +66,17 @@ const Profile = () => {
             </div>
           )}
         </div>
-
-        {/* Dates */}
-        <div className="mt-6 text-sm text-base-content/70">
-          <p className="flex justify-center items-center gap-2">
-            <FaCalendarAlt /> Joined: {formatDate(createdAt)}
-          </p>
-          <p className="mt-1 flex justify-center items-center gap-2">
-            <FaCalendarAlt /> Updated: {formatDate(updatedAt)}
-          </p>
-
+        <div className="mt-6 flex justify-center gap-4">
+   <button className="btn btn-outline btn-secondary">Ignore</button>
+    <button className="btn btn-outline btn-success">Intrest</button>   
         </div>
-          <button onClick={handleEditClick} className="btn btn-outline btn-success">Edit</button>   
-      </div>
+  
+ </div>
     </div>
+
   );
 };
 
-export default Profile;
+
+
+export default UserCard

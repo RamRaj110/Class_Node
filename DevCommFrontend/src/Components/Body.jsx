@@ -11,11 +11,12 @@ import { addUserInfo } from "../utils/userSlice";
 const Body = () => {
   const dispatch= useDispatch()
   const navigate= useNavigate()
-  const userData = useSelector((state)=>state.userInfo)
+  const userData = useSelector((state)=>state.userInfo.userInfo)
+
   const fetchUser = async () => {
-    if(!userData) return ;
+    if(userData) return ;
     try {
-     const res = await axios.get(BASE_URL+'profile/view',
+     const res = await axios.get(BASE_URL+'/profile/view',
       {withCredentials:true})
       dispatch(addUserInfo(res.data))
     } catch (error) {
@@ -26,15 +27,17 @@ const Body = () => {
     }
   }
   useEffect(() => {
-   if(!userData){
+   
     fetchUser()
-   }
+   
   }, [])
 
   return (
-    <div >
+   <div className="flex flex-col min-h-screen">
       <NavBar />
-      <Outlet />
+        <div className="flex-grow">
+        <Outlet />
+      </div>
       <Footer  />
     </div>
   )
