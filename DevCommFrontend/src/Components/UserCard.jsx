@@ -13,7 +13,7 @@ const UserCard = ({user})=> {
     skills = [],
 
   } = user;
-  console.log(user)
+
 
 
   return (

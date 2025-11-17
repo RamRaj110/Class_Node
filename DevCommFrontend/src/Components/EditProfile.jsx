@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux"; // Import useSelector to get user data from Redux
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
-import axios from "axios"; // Assuming you'll use axios for API calls
-import { BASE_URL } from "../utils/constants"; // Assuming BASE_URL is defined
-import { useDispatch } from "react-redux"; // Import useDispatch to update Redux state
-import { addUserInfo } from "../utils/userSlice"; // Import action to update user info
-
+import { useSelector } from "react-redux"; 
+import { useNavigate } from "react-router-dom"; 
+import axios from "axios"; 
+import { BASE_URL } from "../utils/constants"; 
+import { useDispatch } from "react-redux"; 
+import { addUserInfo } from "../utils/userSlice"; 
 const EditProfile = () => {
-  const currentUser = useSelector((state) => state.userInfo.userInfo); // Get current user data from Redux
-  const navigate = useNavigate(); // Initialize navigate hook
-  const dispatch = useDispatch(); // Initialize dispatch hook
+  const currentUser = useSelector((state) => state.userInfo.userInfo); 
+  const navigate = useNavigate(); 
+  const dispatch = useDispatch(); 
 
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
-    profileImg: "", // Changed from photoUrl to profileImg to match user object
+    profileImg: "",
     age: "",
     gender: "",
     about: "",
-    skills: [], // Added skills for editing
+    skills: [], 
   });
 
   const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false); // State for submission loading
-
-  // Prefill form data from Redux user when component mounts or currentUser changes
+  const [isSubmitting, setIsSubmitting] = useState(false); 
+  const [showToast,setShowToast]= useState(false)
   useEffect(() => {
     if (currentUser) {
       setForm({
@@ -37,8 +35,7 @@ const EditProfile = () => {
         skills: currentUser.skills || [],
       });
     }
-  }, [currentUser]); // Re-run effect if currentUser changes
-
+  }, [currentUser]); 
   const validate = () => {
     let err = {};
 
@@ -61,7 +58,6 @@ const EditProfile = () => {
   };
 
   const handleSkillsChange = (e) => {
-    // Convert comma-separated string to an array of trimmed strings
     const skillsArray = e.target.value.split(',').map(skill => skill.trim()).filter(skill => skill !== '');
     setForm({ ...form, skills: skillsArray });
   };
@@ -70,29 +66,33 @@ const EditProfile = () => {
     e.preventDefault();
     if (!validate()) return;
 
-    setIsSubmitting(true); // Set loading state
+    setIsSubmitting(true); 
 
     try {
-      // Replace with your actual API call to update the profile
-      const res = await axios.put(BASE_URL + '/profile/update', form, {
+      const res = await axios.put(BASE_URL + '/profile/edit', form, {
         withCredentials: true,
       });
-      dispatch(addUserInfo(res.data)); // Update Redux state with new user info
-      navigate('/profile'); // Navigate back to the profile page after successful update
+      dispatch(addUserInfo(res.data.user));
+      setShowToast(true) 
+      setTimeout(()=>{
+          setShowToast(false)
+      },1000)
+      setTimeout(()=>{
+navigate('/profile'); 
+      },1000)
+      
     } catch (error) {
       console.error("Error updating profile:", error);
-      // You might want to display an error message to the user
       setErrors(prev => ({ ...prev, api: "Failed to update profile. Please try again." }));
     } finally {
-      setIsSubmitting(false); // Reset loading state
+      setIsSubmitting(false); 
     }
   };
 
   const handleCancel = () => {
-    navigate('/profile'); // Navigate back to the profile page without saving
+    navigate('/profile'); 
   };
 
-  // Display a loading message if user data is not yet available
   if (!currentUser) {
     return <div className="text-center mt-10 text-white text-lg">Loading user data for editing...</div>;
   }
@@ -173,9 +173,9 @@ const EditProfile = () => {
             onChange={handleChange}
           >
             <option value="">Select Gender</option>
-            <option value="male">♂ Male</option>
-            <option value="female">♀ Female</option>
-            <option value="other">⚧ Other</option>
+            <option value="Male">♂ Male</option>
+            <option value="Female">♀ Female</option>
+            <option value="Other">⚧ Other</option>
           </select>
           {errors.gender && <p className="text-error text-sm mt-1">{errors.gender}</p>}
         </div>
@@ -203,11 +203,11 @@ const EditProfile = () => {
             id="skills"
             name="skills"
             className="input input-bordered w-full focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
-            value={form.skills.join(', ')} // Display as comma-separated string
+            value={form.skills.join(', ')} 
             onChange={handleSkillsChange}
             placeholder="e.g., React, Node.js, MongoDB, UI/UX"
           />
-          {/* You can add validation for skills if needed */}
+       
         </div>
 
         {errors.api && <p className="text-error text-sm mt-4 text-center">{errors.api}</p>}
@@ -221,6 +221,11 @@ const EditProfile = () => {
             </button>
         </div>
       </form>
+     { showToast && <div className="toast toast-top toast-end mt-16">
+  <div className="alert alert-success">
+    <span>Profile save successfully.</span>
+  </div>
+</div>}
     </div>
   );
 };

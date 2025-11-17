@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema({
   },
   profileImg:{
     type:String,
-    default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnAkPiR54C0S4U3tNWyL2P2JUFBqjNlmm3Cg&s"
+    default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN0amZ6JYcXM__iA-qeenidfFtXyfeIPaZMw&s"
   }
 },
 { timestamps: true }
@@ -78,7 +78,7 @@ userSchema.methods.validatePasswrd= async function name(passwrdByuser) {
   return isPasswrdValid
 }
 
-// const User = mongoose.model("UserData", userSchema);//for remote 
-const User = mongoose.model("User", userSchema);//for local
+const User = mongoose.model("UserData", userSchema);//for remote 
+// const User = mongoose.model("User", userSchema);//for local
 
 module.exports = User;

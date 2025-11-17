@@ -13,7 +13,7 @@ profileRouter.get("/profile/view",userAuth,async(req,res)=>{
     res.status(400).send('Error'+err.message);
   }
 })
-profileRouter.patch("/profile/edit",userAuth,async(req,res)=>{
+profileRouter.put("/profile/edit",userAuth,async(req,res)=>{
     try {
         if(!userValidationProfile(req)){
             throw new Error("Invalid Edit Request.")
@@ -23,7 +23,10 @@ profileRouter.patch("/profile/edit",userAuth,async(req,res)=>{
             user[key] = req.body[key]
         })
         await user.save();
-        res.send(user.firstName+" Profile updated successfully...")
+        res.send({
+  message: user.firstName + " Profile updated successfully...",
+  user,
+});
 
     } catch (err) {
         res.status(400).send('Error '+err.message);

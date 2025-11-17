@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FaEnvelope, FaUser, FaCalendarAlt, FaVenusMars } from "react-icons/fa";
 
 import { useSelector } from "react-redux";
@@ -5,6 +6,8 @@ import { useNavigate } from "react-router";
 
 const Profile = () => {
   const user = useSelector((state)=> state.userInfo.userInfo)
+ 
+ 
   const navigate = useNavigate();
   
 
@@ -12,6 +15,7 @@ const Profile = () => {
     firstName,
     lastName,
     email,
+    age,
     gender,
     about,
     profileImg,
@@ -31,8 +35,9 @@ const Profile = () => {
     navigate('/edit');
   }
 
+
   return (
-    <div className="max-w-lg mx-auto bg-base-300 rounded-2xl shadow-xl overflow-hidden mt-3 border border-base-200">
+    user && <div className="max-w-lg mx-auto bg-base-300 rounded-2xl shadow-xl overflow-hidden mt-3 border border-base-200">
 
       {/* Header gradient */}
       <div className="bg-gradient-to-r from-primary to-secondary h-32 w-full"></div>
@@ -53,7 +58,10 @@ const Profile = () => {
 
         {/* Gender */}
         <p className="text-base-content/70 flex justify-center items-center gap-2 mt-1">
-          <FaVenusMars /> {gender}
+          <FaVenusMars /> {gender }
+        </p>
+         <p className="text-base-content/70 flex justify-center items-center gap-2 mt-1">
+          Age: {age}
         </p>
 
         {/* Email */}
@@ -98,6 +106,7 @@ const Profile = () => {
         </div>
           <button onClick={handleEditClick} className="btn btn-outline btn-success">Edit</button>   
       </div>
+      
     </div>
   );
 };

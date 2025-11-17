@@ -10,6 +10,7 @@ const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((state) => state.feed);
   const navigate = useNavigate();
+  console.log(feed)
 
   const getFeed = async () => {
     if (feed) return;
@@ -35,7 +36,11 @@ const Feed = () => {
   return (
     feed && (
       <div>
-        <UserCard user={feed[3]} />
+        {feed.map((item,index)=>(
+    <UserCard key={index} user={item}/>
+        ))}
+    
+      
       </div>
     )
   );
