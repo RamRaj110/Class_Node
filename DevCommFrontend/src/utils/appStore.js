@@ -9,6 +9,6 @@ export const appStore =configureStore({
         userInfo : userReducer,
         feed:feedReducer,
         connections:connectionReducer,
-        request:requestReducer
+        requests:requestReducer
     }
 })

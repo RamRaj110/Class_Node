@@ -10,7 +10,7 @@ const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((state) => state.feed);
   const navigate = useNavigate();
-  console.log(feed)
+  // console.log(feed)
 
   const getFeed = async () => {
     if (feed) return;

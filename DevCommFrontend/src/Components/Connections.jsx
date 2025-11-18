@@ -3,16 +3,16 @@ import { BASE_URL } from '../utils/constants'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { addConnection } from '../utils/connectionSlice'
-import UserCard from './UserCard'
+
 
 const Connections = ()=>{
     const connectionData= useSelector((store)=>store.connections)
-    console.log(connectionData)
+
    const dispatch =useDispatch()
     const fetchConnections= async()=>{
         try{const res = await axios.get(BASE_URL+'/users/connections',
             {withCredentials:true})
-            console.log(res.data.data)
+            // console.log(res.data.data)
             dispatch(addConnection(res.data.data))
         }catch(error){
             console.log(error)
@@ -34,7 +34,7 @@ const Connections = ()=>{
     connectionData.map((item) => (
       <div
         key={item._id}
-        className="border border-base-300 rounded-2xl p-4 m-4 shadow-xl bg-base-200 hover:bg-base-300 transition-all"
+        className="border border-base-300 rounded-2xl p-4 m-4 shadow-xl bg-base-200 hover:bg-base-300 transition-all w-1/2 mx-auto"
       >
         <div className="flex items-center gap-4">
           {/* Left - Profile Image */}
