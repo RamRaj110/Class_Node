@@ -31,14 +31,17 @@ const Feed = () => {
   getFeed();
   }, [])
   
- 
+ if (!feed) return;
+ if( feed.length === 0){
+  return <h1 className="text-2xl text-center p-2 font-bold">No Feeds Available</h1>
+ }
 
   return (
     feed && (
       <div>
-        {feed.map((item,index)=>(
-    <UserCard key={index} user={item}/>
-        ))}
+      
+    <UserCard  user={feed[0]}/>
+       
     
       
       </div>

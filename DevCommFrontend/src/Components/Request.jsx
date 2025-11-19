@@ -9,12 +9,10 @@ import axios from 'axios'
 function Request() {
     const dispatch = useDispatch()
     const requestData= useSelector((store)=>store.requests)
-    console.log(requestData)
 
     const reviewRequest=async(status,_id)=>{
       try {
-        const req = await axios.post(BASE_URL+"/request/review/"+status+"/"+_id,{},{withCredentials:true})
-        console.log(req.data)
+         await axios.post(BASE_URL+"/request/review/"+status+"/"+_id,{},{withCredentials:true})
         dispatch(removeRequest(_id))
       } catch (error) {
         console.log("review request error"+error)

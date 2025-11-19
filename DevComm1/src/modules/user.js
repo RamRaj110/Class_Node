@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
   gender: {
     type: String,
     enum: ["Male", "Female", "Other"],
-    required: true,
+    default: "Other"
   },
   skills: {
     type: [String],
@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema({
   },
   profileImg:{
     type:String,
-    default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN0amZ6JYcXM__iA-qeenidfFtXyfeIPaZMw&s"
+    default:"https://pluspng.com/img-png/png-user-icon-circled-user-icon-2240.png"
   }
 },
 { timestamps: true }

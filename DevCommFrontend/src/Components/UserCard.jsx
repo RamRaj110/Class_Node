@@ -1,6 +1,9 @@
-import { FaEnvelope, FaUser, FaCalendarAlt, FaVenusMars } from "react-icons/fa";
-
-
+import axios from "axios";
+import { FaVenusMars } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { BASE_URL } from "../utils/constants";
+import { useEffect } from "react";
+import { removeFeed } from "../utils/feedSlice";
 
 const UserCard = ({user})=> {
 
@@ -11,9 +14,21 @@ const UserCard = ({user})=> {
     about,
     profileImg,
     skills = [],
-
+    _id
   } = user;
+ const dispatch=useDispatch()
 
+  const handleSendReq= async(status,_id)=>{
+    try {
+      await axios.post(BASE_URL+"/request/send/"+status+"/"+_id,{},{withCredentials:true})
+   dispatch(removeFeed(_id))
+    } catch (error) {
+      console.log("send req error"+error)
+    }
+  }
+  useEffect(() => {
+    handleSendReq()
+  }, [])  
 
 
   return (
@@ -67,8 +82,8 @@ const UserCard = ({user})=> {
           )}
         </div>
         <div className="mt-6 flex justify-center gap-4">
-   <button className="btn btn-outline btn-secondary">Ignore</button>
-    <button className="btn btn-outline btn-success">Intrest</button>   
+   <button className="btn btn-outline btn-secondary" onClick={()=>handleSendReq("ignore",_id)}>Ignore</button>
+    <button className="btn btn-outline btn-success" onClick={()=>handleSendReq("intrested",_id)}>Intrest</button>   
         </div>
   
  </div>

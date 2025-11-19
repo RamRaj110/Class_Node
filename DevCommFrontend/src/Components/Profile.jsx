@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FaEnvelope, FaUser, FaCalendarAlt, FaVenusMars } from "react-icons/fa";
 
 import { useSelector } from "react-redux";
@@ -6,10 +5,14 @@ import { useNavigate } from "react-router";
 
 const Profile = () => {
   const user = useSelector((state)=> state.userInfo.userInfo)
- 
- 
   const navigate = useNavigate();
-  
+    if (!user) {
+    return (
+      <div className="flex justify-center mt-10 text-lg text-base-content/70">
+        Loading profile...
+      </div>
+    );
+  }
 
   const {
     firstName,
@@ -45,7 +48,7 @@ const Profile = () => {
       {/* Avatar */}
       <div className="avatar -mt-16 flex justify-center">
         <div className="w-32 rounded-full ring ring-base-100 ring-offset-2 shadow-md">
-          <img src={profileImg} alt="profile" />
+          <img src={profileImg || "https://pluspng.com/img-png/png-user-icon-circled-user-icon-2240.png"} alt="profile" />
         </div>
       </div>
 

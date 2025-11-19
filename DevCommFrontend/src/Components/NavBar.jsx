@@ -27,15 +27,13 @@ const NavBar = () => {
     <Link to='/feed' className="btn btn-ghost text-xl">DevCommunity</Link>
   </div>
   <div className="flex gap-2">
-    {!user && <Link to='/login'>
-    <button className="btn btn-outline btn-success mr-2">Login</button>  
-    </Link>}
+ 
     {user && <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar mx-2">
         <div className="w-10 rounded-full">
           <img
             alt="Tailwind CSS Navbar component"
-            src={user.profileImg}/>
+            src={user.profileImg || 'https://pluspng.com/img-png/png-user-icon-circled-user-icon-2240.png'}/>
         </div>
       </div>
       <ul

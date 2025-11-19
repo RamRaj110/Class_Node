@@ -18,9 +18,7 @@ authRouter.post("/signup", async (req, res) => {
       profileImg,
     } = req.body;
     const hashPassword = await bcrypt.hash(password, 10);
-    // console.log(hashPassword)
 
-    // const user = new User(req.body);
     const user = new User({
       firstName,
       lastName,
@@ -31,8 +29,17 @@ authRouter.post("/signup", async (req, res) => {
       about,
       profileImg,
     });
-    await user.save();
-    res.send("User created successfully.");
+    const savedUser = await user.save();
+    const token = await savedUser.getJWT();
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      expires: new Date(Date.now() + 8 * 3600000),
+    });
+
+    res.json({ message: "User created successfully.", data: savedUser });
   } catch (err) {
     res.status(400).send("Error:" + err.message);
   }
@@ -51,9 +58,10 @@ authRouter.post("/login", async (req, res) => {
       } else {
         const token = await user.getJWT();
 
-        res.cookie("token", token, {httpOnly: true,
-  secure: true,
-  sameSite: "none",
+        res.cookie("token", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
           expires: new Date(Date.now() + 8 * 3600000),
         });
         res.send(user);

@@ -7,9 +7,9 @@ const feedSlice = createSlice({
         addFeed:(state,action)=>{
           return  action.payload;
         },
-        // eslint-disable-next-line no-unused-vars
-        removeFeed:(state)=>{
-            return null;
+        removeFeed:(state,action)=>{
+            const newArray= state.filter((item)=>item._id !== action.payload)
+            return newArray;
         }
 
     }
